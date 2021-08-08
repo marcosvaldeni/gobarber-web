@@ -23,6 +23,12 @@ export const Container = styled.div<ContainerProps>`
   }
 
   ${props =>
+    props.isErrored &&
+    css`
+      border-color: #c53030;
+    `}
+
+  ${props =>
     props.isFocused &&
     css`
       color: #ff9000;
@@ -35,11 +41,7 @@ export const Container = styled.div<ContainerProps>`
       color: #ff9000;
     `}
     
-    ${props =>
-    props.isErrored &&
-    css`
-      border-color: #c53030;
-    `}
+  
 
   input {
     flex: 1;
