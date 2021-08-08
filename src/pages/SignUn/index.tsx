@@ -21,18 +21,11 @@ const SignUp: React.FC = () => {
         <img src={logoImg} alt="GoBarber" />
 
         <Form onSubmit={handleSubmit}>
-          <h1>Sign In</h1>
+          <h1>Sign Un</h1>
 
           <Input name="user" icon={FiUser} placeholder="User" />
 
           <Input name="email" icon={FiMail} placeholder="Email" />
-
-          <Input
-            name="password"
-            icon={FiLock}
-            type="password"
-            placeholder="Password"
-          />
 
           <Input
             name="password"
