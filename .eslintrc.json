@@ -51,7 +51,8 @@
      "react/jsx-props-no-spreading": "off",
      "react/prop-types": "off",
      "import/prefer-default-export": "off",
-     "no-unused-expressions": "off"
+     "no-unused-expressions": "off",
+     "@typescript-eslint/ban-types": "off"
     },
     "settings": {
       "import/resolver": {
