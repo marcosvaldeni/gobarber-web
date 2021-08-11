@@ -32,9 +32,9 @@ const SignIn: React.FC = () => {
 
         const schema = Yup.object().shape({
           email: Yup.string()
-            .email('Digite um e-mail válido')
-            .required('E-mail obrigatório'),
-          password: Yup.string().required('Mandatory password'),
+            .email('Type a valid email!')
+            .required('Email is mandatory!'),
+          password: Yup.string().required('Password is Mandatory!'),
         });
 
         await schema.validate(data, {
@@ -81,7 +81,7 @@ const SignIn: React.FC = () => {
 
           <Button type="submit">Enter</Button>
 
-          <a href="forgot">Esqueci minha senha</a>
+          <a href="forgot">Forgot password</a>
         </Form>
 
         <a href="signup">
