@@ -38,7 +38,7 @@ const SignIn: React.FC = () => {
           password: Yup.string().required('Password is Mandatory!'),
           password_confirmation: Yup.string()
             .nullable()
-            .oneOf([Yup.ref('password'), null], 'Password does not matchS'),
+            .oneOf([Yup.ref('password'), null], 'Password does not match'),
         });
 
         await schema.validate(data, {
