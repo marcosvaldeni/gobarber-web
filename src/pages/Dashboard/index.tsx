@@ -175,14 +175,18 @@ const Dashboard: React.FC = () => {
           <Section>
             <strong>Morning</strong>
             {morningAppointments.map(appointment => (
-              <Appointment>
+              <Appointment key={appointment.id}>
                 <span>
                   <FiClock />
                   {appointment.hourFormatted}
                 </span>
                 <div>
                   <img
-                    src={appointment.user.avatar_url}
+                    src={
+                      appointment.user.avatar_url == null
+                        ? avatar
+                        : appointment.user.avatar_url
+                    }
                     alt={appointment.user.name}
                   />
 
@@ -195,14 +199,18 @@ const Dashboard: React.FC = () => {
           <Section>
             <strong>Afternoon</strong>
             {afternoonAppointments.map(appointment => (
-              <Appointment>
+              <Appointment key={appointment.id}>
                 <span>
                   <FiClock />
                   {appointment.hourFormatted}
                 </span>
                 <div>
                   <img
-                    src={appointment.user.avatar_url}
+                    src={
+                      appointment.user.avatar_url == null
+                        ? avatar
+                        : appointment.user.avatar_url
+                    }
                     alt={appointment.user.name}
                   />
 
