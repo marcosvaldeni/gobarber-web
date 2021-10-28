@@ -45,7 +45,6 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
-        const { password, password_confirmation } = data;
         const token = location.search.replace('?token=', '');
 
         if (!token) {

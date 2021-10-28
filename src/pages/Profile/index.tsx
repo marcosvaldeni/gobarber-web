@@ -18,7 +18,9 @@ import { useAuth } from '../../hooks/auth';
 interface ProfileFormData {
   name: string;
   email: string;
+  old_password: string;
   password: string;
+  password_confirmation: string;
 }
 
 const Profile: React.FC = () => {
@@ -58,33 +60,60 @@ const Profile: React.FC = () => {
           email: Yup.string()
             .email('Type a valid email!')
             .required('Email is mandatory'),
-          password: Yup.string().min(6, 'At least 6 characters'),
+          old_password: Yup.string(),
+          password: Yup.string().when('old_password', {
+            is: val => !!val.length,
+            then: Yup.string().min(6, 'At least 6 characters'),
+            otherwise: Yup.string(),
+          }),
+          password_confirmation: Yup.string()
+            .nullable()
+            .oneOf([Yup.ref('password'), null], 'Password does not match'),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await api.post('/users', data);
+        const { name, email, old_password, password, password_confirmation } =
+          data;
 
-        history.push('/');
+        const formData = {
+          name,
+          email,
+          ...(old_password
+            ? {
+                old_password,
+                password,
+                password_confirmation,
+              }
+            : {}),
+        };
+
+        const response = await api.put('/profile', formData);
+
+        updateUser(response.data);
+
+        history.push('/dashboard');
 
         addToast({
           type: 'success',
-          title: 'Cadastro realizado!',
-          description: 'Você já pode fazer seu logon no GoBarber!',
+          title: 'Updated Profile',
+          description: 'Your information has been updated.',
         });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
+
+          return;
         }
 
         addToast({
           type: 'error',
-          title: 'Erro at registre',
-          description: 'An erro has happened during the registre, try again.',
+          title: 'Erro at upadated',
+          description: 'An error has happened during the upadating, try again.',
         });
       }
     },
@@ -140,7 +169,7 @@ const Profile: React.FC = () => {
           />
 
           <Input
-            name="confirm_password"
+            name="password_confirmation"
             icon={FiLock}
             type="password"
             placeholder="Confirm Password"
